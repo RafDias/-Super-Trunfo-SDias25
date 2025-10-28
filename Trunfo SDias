@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-Olá Mr. SDias
+Olá Sr. SDias
 
 typedef struct {
-    char estado;              // Estado (A-H)
+    char estado[3];           // Sigla do estado (ex: SP)
     char codigo[4];           // Código da carta (ex: A01)
     char cidade[50];          // Nome da cidade
     int populacao;            // População
@@ -12,57 +12,41 @@ typedef struct {
 } Carta;
 
 int main() {
-    Carta carta1, carta2;
-
-    // Cadastro da Carta 1
-    printf("Cadastro da Carta 1:\n");
-    printf("Digite o estado (A-H): ");
-    scanf(" %c", &carta1.estado);
-    printf("Digite o codigo da carta (ex: A01): ");
-    scanf("%s", carta1.codigo);
-    printf("Digite o nome da cidade: ");
-    scanf(" %[^\n]", carta1.cidade);
-    printf("Digite a populacao: ");
-    scanf("%d", &carta1.populacao);
-    printf("Digite a area em km²: ");
-    scanf("%f", &carta1.area);
-    printf("Digite o PIB (em bilhoes de reais): ");
-    scanf("%f", &carta1.pib);
-
-    // Cadastro da Carta 2
-    printf("\nCadastro da Carta 2:\n");
-    printf("Digite o estado (A-H): ");
-    scanf(" %c", &carta2.estado);
-    printf("Digite o codigo da carta (ex: B02): ");
-    scanf("%s", carta2.codigo);
-    printf("Digite o nome da cidade: ");
-    scanf(" %[^\n]", carta2.cidade);
-    printf("Digite a populacao: ");
-    scanf("%d", &carta2.populacao);
-    printf("Digite a area em km²: ");
-    scanf("%f", &carta2.area);
-    printf("Digite o PIB (em bilhoes de reais): ");
-    scanf("%f", &carta2.pib);
+    // Cartas com dados aproximados
+    Carta carta1 = {"SP", "A01", "São Paulo", 11253503, 1521.11, 850.0};
+    Carta carta2 = {"RJ", "B02", "Rio de Janeiro", 6748000, 1200.27, 400.0};
+    Carta carta3 = {"MA", "C03", "São Luís", 1109000, 834.79, 34.0};
+    Carta carta4 = {"PI", "D04", "Teresina", 871126, 1367.30, 28.5};
 
     // Exibição das Cartas
-    printf("\n=========================\n");
-    printf("Carta 1 - %s (%c)\n", carta1.cidade, carta1.estado);
-    printf("Código: %s\nPopulação: %d\nÁrea: %.2f km²\nPIB: %.2f bilhões\n",
+    printf("=========================\n");
+    printf("Carta 1 - %s (%s)\n", carta1.cidade, carta1.estado);
+    printf("Código: %s\nPopulação: %d habitantes\nÁrea: %.2f km²\nPIB: %.2f bilhões de reais\n",
            carta1.codigo, carta1.populacao, carta1.area, carta1.pib);
 
-    printf("\nCarta 2 - %s (%c)\n", carta2.cidade, carta2.estado);
-    printf("Código: %s\nPopulação: %d\nÁrea: %.2f km²\nPIB: %.2f bilhões\n",
+    printf("\nCarta 2 - %s (%s)\n", carta2.cidade, carta2.estado);
+    printf("Código: %s\nPopulação: %d habitantes\nÁrea: %.2f km²\nPIB: %.2f bilhões de reais\n",
            carta2.codigo, carta2.populacao, carta2.area, carta2.pib);
+
+    printf("\nCarta 3 - %s (%s)\n", carta3.cidade, carta3.estado);
+    printf("Código: %s\nPopulação: %d habitantes\nÁrea: %.2f km²\nPIB: %.2f bilhões de reais\n",
+           carta3.codigo, carta3.populacao, carta3.area, carta3.pib);
+
+    printf("\nCarta 4 - %s (%s)\n", carta4.cidade, carta4.estado);
+    printf("Código: %s\nPopulação: %d habitantes\nÁrea: %.2f km²\nPIB: %.2f bilhões de reais\n",
+           carta4.codigo, carta4.populacao, carta4.area, carta4.pib);
 
     // Comparação simples: PIB
     printf("\n=== Comparação de PIB ===\n");
-    if (carta1.pib > carta2.pib)
-        printf("Carta 1 (%s) vence com PIB maior!\n", carta1.cidade);
-    else if (carta2.pib > carta1.pib)
-        printf("Carta 2 (%s) vence com PIB maior!\n", carta2.cidade);
-    else
-        printf("Empate! Ambas têm o mesmo PIB.\n");
+
+    // Encontra a cidade com o maior PIB
+    Carta maiorPIB = carta1;
+    if (carta2.pib > maiorPIB.pib) maiorPIB = carta2;
+    if (carta3.pib > maiorPIB.pib) maiorPIB = carta3;
+    if (carta4.pib > maiorPIB.pib) maiorPIB = carta4;
+
+    printf("A cidade com o maior PIB é %s (%s) com %.2f bilhões de reais.\n",
+           maiorPIB.cidade, maiorPIB.estado, maiorPIB.pib);
 
     return 0;
 }
-
